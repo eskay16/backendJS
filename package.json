@@ -1,0 +1,27 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "\"new project afresh\"",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eskay16/backendJS.git"
+  },
+  "keywords": [
+    "dd"
+  ],
+  "author": "eskay",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eskay16/backendJS/issues"
+  },
+  "homepage": "https://github.com/eskay16/backendJS#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
