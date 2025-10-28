@@ -1,0 +1,31 @@
+import dotenv from 'dotenv';
+import sqlite3 from 'sqlite3';
+
+dotenv.config();
+sqlite3.verbose();
+
+const dbName = process.env.DATABASE_NAME;
+const db = new sqlite3.Database(dbName);
+
+const createTableSqlite3 = `
+    CREATE TABLE IF NOT EXISTS user (
+        userid  INTEGER PRIMARY KEY AUTOINCREMENT,
+        userName TEXT NOT NULL UNIQUE,
+        password TEXT NOT NULL
+    )`;
+
+db.run(createTableSqlite3, (err) =>{
+    if(err){
+      return  console.log("Error creating table: ", err.message);
+    }
+
+    console.log("Table created successfully");
+});
+
+
+db.close((err) =>{
+    if(err){
+        return console.log('Error closing database: ', err.message);
+    }
+    console.log("Database closed successfully");
+});
