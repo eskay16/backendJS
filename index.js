@@ -14,7 +14,7 @@ app.use('/home', (req, res) =>{
     res.json({message: "Welcome"});
 });
 
-app.use('/setup', userRoute);
+app.use('/user', userRoute);
 
 app.listen(portNum, ()=>{
     console.log("http://localhost:4000");

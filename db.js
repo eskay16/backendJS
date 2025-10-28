@@ -45,8 +45,19 @@ export function createUser(userName, password, callback) {
                 return callback("Database error :" + err.message);
             }
             callback(null, "User created successfully");
-        });
-
-   
+        });  
     
+}
+
+export function loginUser (userName, password, callback){
+    const verifyUser = `
+    SELECT * FROM user WHERE userName = ? AND password = ?
+    `;
+
+    db.get(verifyUser, [userName, password], (err,row) =>{
+        if(err){
+            return callback("Login Unsuccessful: "+ err.message);
+        }
+        return callback(null, row);
+    })
 }
