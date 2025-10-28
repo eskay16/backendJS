@@ -23,9 +23,30 @@ db.run(createTableSqlite3, (err) =>{
 });
 
 
-db.close((err) =>{
-    if(err){
-        return console.log('Error closing database: ', err.message);
-    }
-    console.log("Database closed successfully");
-});
+// db.close((err) =>{
+//     if(err){
+//         return console.log('Error closing database: ', err.message);
+//     }
+//     console.log("Database closed successfully");
+// });
+
+
+export function createUser(userName, password, callback) {
+
+        const newUser = `
+            INSERT INTO user(userName, password)
+            VALUES ('${userName}', '${password}');
+        `;
+         db.run(newUser, (err) =>{
+            if(err){
+                if(err.message.includes("UNIQUE constraint")){
+                    return callback('Error the username already exists');
+                }
+                return callback("Database error :" + err.message);
+            }
+            callback(null, "User created successfully");
+        });
+
+   
+    
+}
