@@ -11,6 +11,9 @@ export function authentication(req, res){
         if(!data){
             return res.json({message: 'User not found or incorrect credentials'});
         }
+        if(password !== data.password){
+            return res.json({message: "Invalid password"});
+        }
         return res.json({message: 'successful Login welcome: '+data.userName});
     });
 }

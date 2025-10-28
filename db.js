@@ -51,10 +51,10 @@ export function createUser(userName, password, callback) {
 
 export function loginUser (userName, password, callback){
     const verifyUser = `
-    SELECT * FROM user WHERE userName = ? AND password = ?
+    SELECT * FROM user WHERE userName = ?
     `;
 
-    db.get(verifyUser, [userName, password], (err,row) =>{
+    db.get(verifyUser, [userName], (err,row) =>{
         if(err){
             return callback("Login Unsuccessful: "+ err.message);
         }
