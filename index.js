@@ -10,12 +10,9 @@ const app = express();
 
 app.use(express.json());
 
-app.use('/home', (req, res) =>{
-    res.json({message: "Welcome"});
-});
 
 app.use('/user', userRoute);
 
-app.listen(portNum, ()=>{
-    console.log("http://localhost:4000");
+app.listen(portNum, () => {
+  console.log(`http://localhost:${portNum}`);
 });

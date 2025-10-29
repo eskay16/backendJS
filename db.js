@@ -14,12 +14,12 @@ const createTableSqlite3 = `
         password TEXT NOT NULL
     )`;
 
-db.run(createTableSqlite3, (err) =>{
-    if(err){
-      return  console.log("Error creating table: ", err.message);
-    }
+db.run(createTableSqlite3, (err) => {
+  if (err) {
+    return console.log("Error creating table: ", err.message);
+  }
 
-    console.log("Table created successfully");
+  console.log("Table created successfully");
 });
 
 
@@ -33,31 +33,30 @@ db.run(createTableSqlite3, (err) =>{
 
 export function createUser(userName, password, callback) {
 
-        const newUser = `
+  const newUser = `
             INSERT INTO user(userName, password)
-            VALUES ('${userName}', '${password}');
-        `;
-         db.run(newUser, (err) =>{
-            if(err){
-                if(err.message.includes("UNIQUE constraint")){
-                    return callback('Error the username already exists');
-                }
-                return callback("Database error :" + err.message);
-            }
-            callback(null, "User created successfully");
-        });  
-    
+            VALUES ('${userName}', '${password}');`;
+
+  db.run(newUser, (err) => {
+    if (!err) return callback(null, "User created successfully");
+
+    if (err.message.includes("UNIQUE constraint")) {
+      return callback('Error the username already exists');
+    }
+    return callback("Database error :" + err.message);
+  });
+
 }
 
-export function loginUser (userName, password, callback){
-    const verifyUser = `
+export function loginUser(userName, password, callback) {
+  const verifyUser = `
     SELECT * FROM user WHERE userName = ?
     `;
 
-    db.get(verifyUser, [userName], (err,row) =>{
-        if(err){
-            return callback("Login Unsuccessful: "+ err.message);
-        }
-        return callback(null, row);
-    })
+  db.get(verifyUser, [userName], (err, row) => {
+    if (err) {
+      return callback("Login Unsuccessful: " + err.message);
+    }
+    return callback(null, row);
+  })
 }
