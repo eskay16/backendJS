@@ -3,13 +3,17 @@ import { detailsValidators, signUpValidators, validators } from '../validation/v
 import { Signup } from '../controller/signup.js';
 import { loginTheUser } from '../controller/login.js';
 import { personalDetails } from '../controller/PersonalDetails.js';
- 
+import { jwtMiddleware } from '../auth/jwtMiddleWare.js';
+
 const userRoutes = express.Router();
 
 userRoutes.post('/signup', validators(signUpValidators), Signup);
+userRoutes.post('/login', validators(signUpValidators), loginTheUser);
 
-userRoutes.post('/login',validators(signUpValidators), loginTheUser);
+//-------------------------
+//    Protected routes
+//-------------------------
 
-userRoutes.post('/add-details', validators(detailsValidators), personalDetails);
+userRoutes.post('/add-details', jwtMiddleware, validators(detailsValidators), personalDetails);
 
 export default userRoutes;
