@@ -1,66 +1,51 @@
-import {body} from 'express-validator';
+import { body } from "express-validator";
 
-export const validators = (validate) =>
-    async (req, res, next)=>{
-        for(const validates of validate){
-            const result = await validates.run(req);
-            if(!result.isEmpty()){
-                console.log(result.array());
-                return res.status(400).json({errors: result.array()});
-            }
-            
-        }
-       console.log('Details validated successfully');
+export const validators = (validate) => async (req, res, next) => {
+  for (const validates of validate) {
+    const result = await validates.run(req);
+    if (!result.isEmpty()) {
+      console.log(result.array());
+      return res.status(400).json({ errors: result.array() });
+    }
+  }
+  console.log("Details validated successfully");
 
-    next();
-}
+  next();
+};
 
 export const signUpValidators = [
-  body("userName")
-    .notEmpty()
-    .escape()
-    .trim()
-    .withMessage("Invalid userName"),
-  body("password")
-    .notEmpty()
-    .escape()
-    .trim()
-    .withMessage("Invalid password")
-]
+  body("userName").notEmpty().escape().trim().withMessage("Invalid userName"),
+  body("password").notEmpty().escape().trim().withMessage("Invalid password"),
+];
 
 export const detailsValidators = [
-    body("firstName")
+  body("firstName")
     .notEmpty()
     .trim()
     .escape()
     .isAlpha()
     .isByteLength({ min: 3, max: 30 })
-    .withMessage("incalid firstName"),
-    body("lastName")
+    .withMessage("invalid firstName"),
+  body("lastName")
     .notEmpty()
     .trim()
     .escape()
     .isAlpha()
     .isByteLength({ min: 3, max: 30 })
     .withMessage("invalid lastName"),
-    body("age")
-    .notEmpty()
-    .isInt({ min: 6, max: 99 })
-    .withMessage("invalid age"),
-    body("email")
+  body("age").notEmpty().isInt({ min: 6, max: 99 }).withMessage("invalid age"),
+  body("email")
     .notEmpty()
     .trim()
     .isEmail()
     .escape()
     .withMessage("invalid email"),
-    body("gender")
+  body("gender")
     .notEmpty()
     .trim()
     .escape()
     .isByteLength({ min: 1, max: 1 })
-    .isIn(['m', 'f'])
-    .withMessage("can only be m or f")
-    
-
-
-]
+    .isIn(["m", "f"])
+    .withMessage("can only be m or f"),
+  body("userName").notEmpty().escape().trim().withMessage("Invalid userName"),
+];

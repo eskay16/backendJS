@@ -1,22 +1,22 @@
 import { CreateNewUser } from "../db.js";
 
-export function Signup (req, res){
-    
-    const {userName, password} = req.body;
+export function Signup(req, res) {
+  const { userName, password } = req.body;
 
-    if(!userName){
-        console.log("Validator no work");
-    }else{
-        console.log("working");
-        const worked = CreateNewUser(userName, password);
+  if (!userName || !password) {
+    console.log("Validator no work");
+    return res.status(400).json({ message: "Username or password is missing" });
+  }
+  console.log("working");
+CreateNewUser(userName, password, (worked) =>{
+    if (!worked.status) {
+    return res.status(400).json({ message: "unable to add " + worked.message });
+  }
 
-        if(worked){
-        res.status(200).json({message: worked});
-    }
+  return res
+    .status(200)
+    .json({ message: "successfully added " + worked.userName });
+  });
 
-    }
-
-    
-
-
+  
 }
