@@ -77,9 +77,14 @@ export function insertDetails(req, callback) {
     [firstName, lastName, age, email, gender, userName],
     (err) => {
       if (err) {
-        return callback("Details did not add successfully " + err.message);
+        return callback({
+          message: "Details did not add successfully " + err.message, status: false
+        });
       }
-      return;
+      return callback({
+        message: "successful insertion",
+        status: true
+      });
     }
   );
 }
