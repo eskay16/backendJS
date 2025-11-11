@@ -18,8 +18,8 @@ userRoutes.post("/login", validators(signUpValidators), loginTheUser);
 
 userRoutes.post(
   "/add-details",
-  validators(detailsValidators),
   jwtMiddleware,
+   validators(detailsValidators),
   personalDetails
 );
 userRoutes.post("/delete-details", jwtMiddleware, (req, res) => {

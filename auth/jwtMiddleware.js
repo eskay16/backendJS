@@ -4,7 +4,7 @@ const JWT_SECRET = process.env.JWT_SECRET
 
 export const jwtMiddleware = (req, res, next) => {
   try {
-    const token = req.cookies['bj']
+    const token = req.cookies['customer']
     if (!token) return res.status(400).json({ message: "auth token missing." });
 
     const decoded = jwt.verify(token, JWT_SECRET)
@@ -12,12 +12,14 @@ export const jwtMiddleware = (req, res, next) => {
 
     if ('userName' in decoded) {
       console.log(decoded.userName);
+      req.user = decoded;
       return next()
     }
+    
 
     return res.status(400).json({ message: "invalid token." })
   } catch (err) {
     console.log(err)
-    return res.status(400).json({ message: "Something went wrong" })
+    return res.status(400).json({ message: "Something went wrong " + err.message})
   }
 }
