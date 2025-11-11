@@ -46,6 +46,7 @@ export const detailsValidators = [
     .escape()
     .isByteLength({ min: 1, max: 1 })
     .isIn(["m", "f"])
-    .withMessage("can only be m or f"),
-  body("userName").notEmpty().escape().trim().withMessage("Invalid userName"),
+    .withMessage("can only be m or f")
+  //   ,
+  // body("userName").notEmpty().escape().trim().withMessage("Invalid userName"),
 ];
