@@ -34,3 +34,4 @@ userRoutes.post("/delete-details", jwtMiddleware, (req, res) => {
 });
 
 export default userRoutes;
+

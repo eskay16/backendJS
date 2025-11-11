@@ -10,10 +10,12 @@ export const loginTheUser = (req, res) => {
     if (err) {
       return res.json({ message: "error :" + err });
     }
+    }
     if (!result) {
       return res.json({ message: "User does not exist" });
     }
     if (password !== result.password) {
+      return res.json({ message: "Incorrect username or passowrd" });
       return res.json({ message: "Incorrect username or passowrd" });
     }
 
