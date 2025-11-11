@@ -16,4 +16,5 @@ userRoutes.post('/login', validators(signUpValidators), loginTheUser);
 
 userRoutes.post('/add-details', jwtMiddleware, validators(detailsValidators), personalDetails);
 
+
 export default userRoutes;
